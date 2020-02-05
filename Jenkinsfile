@@ -71,8 +71,8 @@ pipeline {
             // release the helm chart
             sh "jx step helm release"
 
-            // promote through all 'Auto' promotion Environments
-            sh "jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION)"
+            // promote to production environment
+            sh "jx promote -b -e production --timeout 1h --version \$(cat ../../VERSION)"
           }
         }
       }
