@@ -44,7 +44,7 @@ canary:
   host: acme.com
 
 service:
-  name: quickstart-angular
+  name: jxbluenodejs
   type: ClusterIP
   externalPort: 80
   internalPort: 8080

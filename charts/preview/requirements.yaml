@@ -12,5 +12,5 @@ dependencies:
   # !! "alias: preview" must be last entry in dependencies array !!
   # !! Place custom dependencies above !!
 - alias: preview
-  name: quickstart-angular
-  repository: file://../quickstart-angular
+  name: jxbluenodejs 
+  repository: file://../jxbluenodejs
