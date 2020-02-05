@@ -1,0 +1,33 @@
+import * as tslib_1 from "tslib";
+/*
+ * Copyright (c) 2016-2018 VMware, Inc. All Rights Reserved.
+ * This software is released under MIT license.
+ * The full license information can be found in LICENSE in the root directory of this project.
+ */
+import { ChangeDetectorRef, Directive, Optional } from '@angular/core';
+import { OompaLoompa } from '../../../utils/chocolate/oompa-loompa';
+import { ResponsiveNavigationService } from '../providers/responsive-navigation.service';
+import { MainContainerWillyWonka } from './main-container-willy-wonka';
+let NavDetectionOompaLoompa = class NavDetectionOompaLoompa extends OompaLoompa {
+    constructor(cdr, willyWonka, responsiveNavService) {
+        if (!willyWonka) {
+            throw new Error('clr-header should only be used inside of a clr-main-container');
+        }
+        super(cdr, willyWonka);
+        this.responsiveNavService = responsiveNavService;
+    }
+    // NavDetectionOompaLoompa is the addition of the nav levels
+    // Since we support 2 levels, the possibilities are 0, 1 or 3 (1 + 2)
+    get flavor() {
+        return this.responsiveNavService.responsiveNavList.reduce((sum, navLevel) => sum + navLevel, 0);
+    }
+};
+NavDetectionOompaLoompa = tslib_1.__decorate([
+    Directive({ selector: 'clr-header' }),
+    tslib_1.__param(1, Optional()),
+    tslib_1.__metadata("design:paramtypes", [ChangeDetectorRef,
+        MainContainerWillyWonka,
+        ResponsiveNavigationService])
+], NavDetectionOompaLoompa);
+export { NavDetectionOompaLoompa };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmF2LWRldGVjdGlvbi1vb21wYS1sb29tcGEuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9AY2xyL2FuZ3VsYXIvIiwic291cmNlcyI6WyJsYXlvdXQvbmF2L2Nob2NvbGF0ZS9uYXYtZGV0ZWN0aW9uLW9vbXBhLWxvb21wYS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQUE7Ozs7R0FJRztBQUNILE9BQU8sRUFBRSxpQkFBaUIsRUFBRSxTQUFTLEVBQUUsUUFBUSxFQUFFLE1BQU0sZUFBZSxDQUFDO0FBQ3ZFLE9BQU8sRUFBRSxXQUFXLEVBQUUsTUFBTSx1Q0FBdUMsQ0FBQztBQUNwRSxPQUFPLEVBQUUsMkJBQTJCLEVBQUUsTUFBTSw0Q0FBNEMsQ0FBQztBQUN6RixPQUFPLEVBQUUsdUJBQXVCLEVBQUUsTUFBTSw4QkFBOEIsQ0FBQztBQUd2RSxJQUFhLHVCQUF1QixHQUFwQyxNQUFhLHVCQUF3QixTQUFRLFdBQVc7SUFHdEQsWUFDRSxHQUFzQixFQUNWLFVBQW1DLEVBQy9DLG9CQUFpRDtRQUVqRCxJQUFJLENBQUMsVUFBVSxFQUFFO1lBQ2YsTUFBTSxJQUFJLEtBQUssQ0FBQywrREFBK0QsQ0FBQyxDQUFDO1NBQ2xGO1FBQ0QsS0FBSyxDQUFDLEdBQUcsRUFBRSxVQUFVLENBQUMsQ0FBQztRQUN2QixJQUFJLENBQUMsb0JBQW9CLEdBQUcsb0JBQW9CLENBQUM7SUFDbkQsQ0FBQztJQUVELDREQUE0RDtJQUM1RCxxRUFBcUU7SUFDckUsSUFBSSxNQUFNO1FBQ1IsT0FBTyxJQUFJLENBQUMsb0JBQW9CLENBQUMsaUJBQWlCLENBQUMsTUFBTSxDQUFDLENBQUMsR0FBRyxFQUFFLFFBQVEsRUFBRSxFQUFFLENBQUMsR0FBRyxHQUFHLFFBQVEsRUFBRSxDQUFDLENBQUMsQ0FBQztJQUNsRyxDQUFDO0NBQ0YsQ0FBQTtBQXBCWSx1QkFBdUI7SUFEbkMsU0FBUyxDQUFDLEVBQUUsUUFBUSxFQUFFLFlBQVksRUFBRSxDQUFDO0lBTWpDLG1CQUFBLFFBQVEsRUFBRSxDQUFBOzZDQUROLGlCQUFpQjtRQUNFLHVCQUF1QjtRQUN6QiwyQkFBMkI7R0FOeEMsdUJBQXVCLENBb0JuQztTQXBCWSx1QkFBdUIiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxuICogQ29weXJpZ2h0IChjKSAyMDE2LTIwMTggVk13YXJlLCBJbmMuIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKiBUaGlzIHNvZnR3YXJlIGlzIHJlbGVhc2VkIHVuZGVyIE1JVCBsaWNlbnNlLlxuICogVGhlIGZ1bGwgbGljZW5zZSBpbmZvcm1hdGlvbiBjYW4gYmUgZm91bmQgaW4gTElDRU5TRSBpbiB0aGUgcm9vdCBkaXJlY3Rvcnkgb2YgdGhpcyBwcm9qZWN0LlxuICovXG5pbXBvcnQgeyBDaGFuZ2VEZXRlY3RvclJlZiwgRGlyZWN0aXZlLCBPcHRpb25hbCB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHsgT29tcGFMb29tcGEgfSBmcm9tICcuLi8uLi8uLi91dGlscy9jaG9jb2xhdGUvb29tcGEtbG9vbXBhJztcbmltcG9ydCB7IFJlc3BvbnNpdmVOYXZpZ2F0aW9uU2VydmljZSB9IGZyb20gJy4uL3Byb3ZpZGVycy9yZXNwb25zaXZlLW5hdmlnYXRpb24uc2VydmljZSc7XG5pbXBvcnQgeyBNYWluQ29udGFpbmVyV2lsbHlXb25rYSB9IGZyb20gJy4vbWFpbi1jb250YWluZXItd2lsbHktd29ua2EnO1xuXG5ARGlyZWN0aXZlKHsgc2VsZWN0b3I6ICdjbHItaGVhZGVyJyB9KVxuZXhwb3J0IGNsYXNzIE5hdkRldGVjdGlvbk9vbXBhTG9vbXBhIGV4dGVuZHMgT29tcGFMb29tcGEge1xuICBwcml2YXRlIHJlc3BvbnNpdmVOYXZTZXJ2aWNlOiBSZXNwb25zaXZlTmF2aWdhdGlvblNlcnZpY2U7XG5cbiAgY29uc3RydWN0b3IoXG4gICAgY2RyOiBDaGFuZ2VEZXRlY3RvclJlZixcbiAgICBAT3B0aW9uYWwoKSB3aWxseVdvbmthOiBNYWluQ29udGFpbmVyV2lsbHlXb25rYSxcbiAgICByZXNwb25zaXZlTmF2U2VydmljZTogUmVzcG9uc2l2ZU5hdmlnYXRpb25TZXJ2aWNlXG4gICkge1xuICAgIGlmICghd2lsbHlXb25rYSkge1xuICAgICAgdGhyb3cgbmV3IEVycm9yKCdjbHItaGVhZGVyIHNob3VsZCBvbmx5IGJlIHVzZWQgaW5zaWRlIG9mIGEgY2xyLW1haW4tY29udGFpbmVyJyk7XG4gICAgfVxuICAgIHN1cGVyKGNkciwgd2lsbHlXb25rYSk7XG4gICAgdGhpcy5yZXNwb25zaXZlTmF2U2VydmljZSA9IHJlc3BvbnNpdmVOYXZTZXJ2aWNlO1xuICB9XG5cbiAgLy8gTmF2RGV0ZWN0aW9uT29tcGFMb29tcGEgaXMgdGhlIGFkZGl0aW9uIG9mIHRoZSBuYXYgbGV2ZWxzXG4gIC8vIFNpbmNlIHdlIHN1cHBvcnQgMiBsZXZlbHMsIHRoZSBwb3NzaWJpbGl0aWVzIGFyZSAwLCAxIG9yIDMgKDEgKyAyKVxuICBnZXQgZmxhdm9yKCkge1xuICAgIHJldHVybiB0aGlzLnJlc3BvbnNpdmVOYXZTZXJ2aWNlLnJlc3BvbnNpdmVOYXZMaXN0LnJlZHVjZSgoc3VtLCBuYXZMZXZlbCkgPT4gc3VtICsgbmF2TGV2ZWwsIDApO1xuICB9XG59XG4iXX0=

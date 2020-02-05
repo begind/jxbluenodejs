@@ -1,0 +1,29 @@
+/*
+ * Copyright (c) 2016-2019 VMware, Inc. All Rights Reserved.
+ * This software is released under MIT license.
+ * The full license information can be found in LICENSE in the root directory of this project.
+ */
+import * as tslib_1 from "tslib";
+import { ChangeDetectorRef, Directive, Optional } from '@angular/core';
+import { OompaLoompa } from '../../utils/chocolate/oompa-loompa';
+import { AccordionWillyWonka } from './accordion-willy-wonka';
+import { IfExpandService } from '../../utils/conditional/if-expanded.service';
+let AccordionOompaLoompa = class AccordionOompaLoompa extends OompaLoompa {
+    constructor(cdr, willyWonka, ifExpandService) {
+        if (!willyWonka) {
+            throw new Error('clr-accordion-panel should only be used inside of clr-accordion');
+        }
+        super(cdr, willyWonka);
+        this.expand = ifExpandService;
+    }
+    get flavor() {
+        return this.expand.expanded;
+    }
+};
+AccordionOompaLoompa = tslib_1.__decorate([
+    Directive({ selector: 'clr-accordion-panel' }),
+    tslib_1.__param(1, Optional()),
+    tslib_1.__metadata("design:paramtypes", [ChangeDetectorRef, AccordionWillyWonka, IfExpandService])
+], AccordionOompaLoompa);
+export { AccordionOompaLoompa };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYWNjb3JkaW9uLW9vbXBhLWxvb21wYS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0BjbHIvYW5ndWxhci8iLCJzb3VyY2VzIjpbImFjY29yZGlvbi9jaG9jb2xhdGUvYWNjb3JkaW9uLW9vbXBhLWxvb21wYS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7OztHQUlHOztBQUVILE9BQU8sRUFBRSxpQkFBaUIsRUFBRSxTQUFTLEVBQUUsUUFBUSxFQUFFLE1BQU0sZUFBZSxDQUFDO0FBRXZFLE9BQU8sRUFBRSxXQUFXLEVBQUUsTUFBTSxvQ0FBb0MsQ0FBQztBQUNqRSxPQUFPLEVBQUUsbUJBQW1CLEVBQUUsTUFBTSx5QkFBeUIsQ0FBQztBQUM5RCxPQUFPLEVBQUUsZUFBZSxFQUFFLE1BQU0sNkNBQTZDLENBQUM7QUFHOUUsSUFBYSxvQkFBb0IsR0FBakMsTUFBYSxvQkFBcUIsU0FBUSxXQUFXO0lBR25ELFlBQVksR0FBc0IsRUFBYyxVQUErQixFQUFFLGVBQWdDO1FBQy9HLElBQUksQ0FBQyxVQUFVLEVBQUU7WUFDZixNQUFNLElBQUksS0FBSyxDQUFDLGlFQUFpRSxDQUFDLENBQUM7U0FDcEY7UUFDRCxLQUFLLENBQUMsR0FBRyxFQUFFLFVBQVUsQ0FBQyxDQUFDO1FBQ3ZCLElBQUksQ0FBQyxNQUFNLEdBQUcsZUFBZSxDQUFDO0lBQ2hDLENBQUM7SUFFRCxJQUFJLE1BQU07UUFDUixPQUFPLElBQUksQ0FBQyxNQUFNLENBQUMsUUFBUSxDQUFDO0lBQzlCLENBQUM7Q0FDRixDQUFBO0FBZFksb0JBQW9CO0lBRGhDLFNBQVMsQ0FBQyxFQUFFLFFBQVEsRUFBRSxxQkFBcUIsRUFBRSxDQUFDO0lBSVIsbUJBQUEsUUFBUSxFQUFFLENBQUE7NkNBQTlCLGlCQUFpQixFQUEwQixtQkFBbUIsRUFBbUIsZUFBZTtHQUh0RyxvQkFBb0IsQ0FjaEM7U0FkWSxvQkFBb0IiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxuICogQ29weXJpZ2h0IChjKSAyMDE2LTIwMTkgVk13YXJlLCBJbmMuIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKiBUaGlzIHNvZnR3YXJlIGlzIHJlbGVhc2VkIHVuZGVyIE1JVCBsaWNlbnNlLlxuICogVGhlIGZ1bGwgbGljZW5zZSBpbmZvcm1hdGlvbiBjYW4gYmUgZm91bmQgaW4gTElDRU5TRSBpbiB0aGUgcm9vdCBkaXJlY3Rvcnkgb2YgdGhpcyBwcm9qZWN0LlxuICovXG5cbmltcG9ydCB7IENoYW5nZURldGVjdG9yUmVmLCBEaXJlY3RpdmUsIE9wdGlvbmFsIH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XG5cbmltcG9ydCB7IE9vbXBhTG9vbXBhIH0gZnJvbSAnLi4vLi4vdXRpbHMvY2hvY29sYXRlL29vbXBhLWxvb21wYSc7XG5pbXBvcnQgeyBBY2NvcmRpb25XaWxseVdvbmthIH0gZnJvbSAnLi9hY2NvcmRpb24td2lsbHktd29ua2EnO1xuaW1wb3J0IHsgSWZFeHBhbmRTZXJ2aWNlIH0gZnJvbSAnLi4vLi4vdXRpbHMvY29uZGl0aW9uYWwvaWYtZXhwYW5kZWQuc2VydmljZSc7XG5cbkBEaXJlY3RpdmUoeyBzZWxlY3RvcjogJ2Nsci1hY2NvcmRpb24tcGFuZWwnIH0pXG5leHBvcnQgY2xhc3MgQWNjb3JkaW9uT29tcGFMb29tcGEgZXh0ZW5kcyBPb21wYUxvb21wYSB7XG4gIHByaXZhdGUgZXhwYW5kOiBJZkV4cGFuZFNlcnZpY2U7XG5cbiAgY29uc3RydWN0b3IoY2RyOiBDaGFuZ2VEZXRlY3RvclJlZiwgQE9wdGlvbmFsKCkgd2lsbHlXb25rYTogQWNjb3JkaW9uV2lsbHlXb25rYSwgaWZFeHBhbmRTZXJ2aWNlOiBJZkV4cGFuZFNlcnZpY2UpIHtcbiAgICBpZiAoIXdpbGx5V29ua2EpIHtcbiAgICAgIHRocm93IG5ldyBFcnJvcignY2xyLWFjY29yZGlvbi1wYW5lbCBzaG91bGQgb25seSBiZSB1c2VkIGluc2lkZSBvZiBjbHItYWNjb3JkaW9uJyk7XG4gICAgfVxuICAgIHN1cGVyKGNkciwgd2lsbHlXb25rYSk7XG4gICAgdGhpcy5leHBhbmQgPSBpZkV4cGFuZFNlcnZpY2U7XG4gIH1cblxuICBnZXQgZmxhdm9yKCkge1xuICAgIHJldHVybiB0aGlzLmV4cGFuZC5leHBhbmRlZDtcbiAgfVxufVxuIl19

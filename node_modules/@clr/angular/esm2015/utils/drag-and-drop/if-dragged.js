@@ -1,0 +1,43 @@
+import * as tslib_1 from "tslib";
+/*
+ * Copyright (c) 2016-2018 VMware, Inc. All Rights Reserved.
+ * This software is released under MIT license.
+ * The full license information can be found in LICENSE in the root directory of this project.
+ */
+import { Directive, Optional, SkipSelf, TemplateRef, ViewContainerRef } from '@angular/core';
+import { DragEventListenerService } from './providers/drag-event-listener.service';
+// This structural directive will be used mainly together with `clr-draggable-ghost` directive inside of clrDraggable
+// directive. The directive is responsible for instantiating `clr-draggable-ghost` directive only during dragging so
+// that Angular Change Detection is prevented from running if a component or directive is placed inside of the
+// `clr-draggable-ghost` directive.
+let ClrIfDragged = class ClrIfDragged {
+    constructor(template, container, dragEventListener) {
+        this.template = template;
+        this.container = container;
+        this.dragEventListener = dragEventListener;
+        this.subscriptions = [];
+        if (!this.dragEventListener || !this.container) {
+            throw new Error('The *clrIfDragged directive can only be used inside of a clrDraggable directive.');
+        }
+        this.subscriptions.push(this.dragEventListener.dragStarted.subscribe((event) => {
+            this.container.createEmbeddedView(this.template);
+        }));
+        this.subscriptions.push(this.dragEventListener.dragEnded.subscribe((event) => {
+            this.container.clear();
+        }));
+    }
+    ngOnDestroy() {
+        this.subscriptions.forEach((sub) => sub.unsubscribe());
+    }
+};
+ClrIfDragged = tslib_1.__decorate([
+    Directive({ selector: '[clrIfDragged]' }),
+    tslib_1.__param(1, Optional()),
+    tslib_1.__param(1, SkipSelf()),
+    tslib_1.__param(2, Optional()),
+    tslib_1.__metadata("design:paramtypes", [TemplateRef,
+        ViewContainerRef,
+        DragEventListenerService])
+], ClrIfDragged);
+export { ClrIfDragged };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaWYtZHJhZ2dlZC5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0BjbHIvYW5ndWxhci8iLCJzb3VyY2VzIjpbInV0aWxzL2RyYWctYW5kLWRyb3AvaWYtZHJhZ2dlZC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQUE7Ozs7R0FJRztBQUNILE9BQU8sRUFBRSxTQUFTLEVBQWEsUUFBUSxFQUFFLFFBQVEsRUFBRSxXQUFXLEVBQUUsZ0JBQWdCLEVBQUUsTUFBTSxlQUFlLENBQUM7QUFJeEcsT0FBTyxFQUFFLHdCQUF3QixFQUFFLE1BQU0seUNBQXlDLENBQUM7QUFFbkYscUhBQXFIO0FBQ3JILG9IQUFvSDtBQUNwSCw4R0FBOEc7QUFDOUcsbUNBQW1DO0FBR25DLElBQWEsWUFBWSxHQUF6QixNQUFhLFlBQVk7SUFFdkIsWUFDVSxRQUEwQixFQUcxQixTQUEyQixFQUNmLGlCQUE4QztRQUoxRCxhQUFRLEdBQVIsUUFBUSxDQUFrQjtRQUcxQixjQUFTLEdBQVQsU0FBUyxDQUFrQjtRQUNmLHNCQUFpQixHQUFqQixpQkFBaUIsQ0FBNkI7UUFONUQsa0JBQWEsR0FBbUIsRUFBRSxDQUFDO1FBUXpDLElBQUksQ0FBQyxJQUFJLENBQUMsaUJBQWlCLElBQUksQ0FBQyxJQUFJLENBQUMsU0FBUyxFQUFFO1lBQzlDLE1BQU0sSUFBSSxLQUFLLENBQUMsa0ZBQWtGLENBQUMsQ0FBQztTQUNyRztRQUVELElBQUksQ0FBQyxhQUFhLENBQUMsSUFBSSxDQUNyQixJQUFJLENBQUMsaUJBQWlCLENBQUMsV0FBVyxDQUFDLFNBQVMsQ0FBQyxDQUFDLEtBQTRCLEVBQUUsRUFBRTtZQUM1RSxJQUFJLENBQUMsU0FBUyxDQUFDLGtCQUFrQixDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsQ0FBQztRQUNuRCxDQUFDLENBQUMsQ0FDSCxDQUFDO1FBQ0YsSUFBSSxDQUFDLGFBQWEsQ0FBQyxJQUFJLENBQ3JCLElBQUksQ0FBQyxpQkFBaUIsQ0FBQyxTQUFTLENBQUMsU0FBUyxDQUFDLENBQUMsS0FBNEIsRUFBRSxFQUFFO1lBQzFFLElBQUksQ0FBQyxTQUFTLENBQUMsS0FBSyxFQUFFLENBQUM7UUFDekIsQ0FBQyxDQUFDLENBQ0gsQ0FBQztJQUNKLENBQUM7SUFFRCxXQUFXO1FBQ1QsSUFBSSxDQUFDLGFBQWEsQ0FBQyxPQUFPLENBQUMsQ0FBQyxHQUFpQixFQUFFLEVBQUUsQ0FBQyxHQUFHLENBQUMsV0FBVyxFQUFFLENBQUMsQ0FBQztJQUN2RSxDQUFDO0NBQ0YsQ0FBQTtBQTVCWSxZQUFZO0lBRHhCLFNBQVMsQ0FBQyxFQUFFLFFBQVEsRUFBRSxnQkFBZ0IsRUFBRSxDQUFDO0lBS3JDLG1CQUFBLFFBQVEsRUFBRSxDQUFBO0lBQ1YsbUJBQUEsUUFBUSxFQUFFLENBQUE7SUFFVixtQkFBQSxRQUFRLEVBQUUsQ0FBQTs2Q0FKTyxXQUFXO1FBR1YsZ0JBQWdCO1FBQ0ksd0JBQXdCO0dBUHRELFlBQVksQ0E0QnhCO1NBNUJZLFlBQVkiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxuICogQ29weXJpZ2h0IChjKSAyMDE2LTIwMTggVk13YXJlLCBJbmMuIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKiBUaGlzIHNvZnR3YXJlIGlzIHJlbGVhc2VkIHVuZGVyIE1JVCBsaWNlbnNlLlxuICogVGhlIGZ1bGwgbGljZW5zZSBpbmZvcm1hdGlvbiBjYW4gYmUgZm91bmQgaW4gTElDRU5TRSBpbiB0aGUgcm9vdCBkaXJlY3Rvcnkgb2YgdGhpcyBwcm9qZWN0LlxuICovXG5pbXBvcnQgeyBEaXJlY3RpdmUsIE9uRGVzdHJveSwgT3B0aW9uYWwsIFNraXBTZWxmLCBUZW1wbGF0ZVJlZiwgVmlld0NvbnRhaW5lclJlZiB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHsgU3Vic2NyaXB0aW9uIH0gZnJvbSAncnhqcyc7XG5cbmltcG9ydCB7IERyYWdFdmVudEludGVyZmFjZSB9IGZyb20gJy4vaW50ZXJmYWNlcy9kcmFnLWV2ZW50LmludGVyZmFjZSc7XG5pbXBvcnQgeyBEcmFnRXZlbnRMaXN0ZW5lclNlcnZpY2UgfSBmcm9tICcuL3Byb3ZpZGVycy9kcmFnLWV2ZW50LWxpc3RlbmVyLnNlcnZpY2UnO1xuXG4vLyBUaGlzIHN0cnVjdHVyYWwgZGlyZWN0aXZlIHdpbGwgYmUgdXNlZCBtYWlubHkgdG9nZXRoZXIgd2l0aCBgY2xyLWRyYWdnYWJsZS1naG9zdGAgZGlyZWN0aXZlIGluc2lkZSBvZiBjbHJEcmFnZ2FibGVcbi8vIGRpcmVjdGl2ZS4gVGhlIGRpcmVjdGl2ZSBpcyByZXNwb25zaWJsZSBmb3IgaW5zdGFudGlhdGluZyBgY2xyLWRyYWdnYWJsZS1naG9zdGAgZGlyZWN0aXZlIG9ubHkgZHVyaW5nIGRyYWdnaW5nIHNvXG4vLyB0aGF0IEFuZ3VsYXIgQ2hhbmdlIERldGVjdGlvbiBpcyBwcmV2ZW50ZWQgZnJvbSBydW5uaW5nIGlmIGEgY29tcG9uZW50IG9yIGRpcmVjdGl2ZSBpcyBwbGFjZWQgaW5zaWRlIG9mIHRoZVxuLy8gYGNsci1kcmFnZ2FibGUtZ2hvc3RgIGRpcmVjdGl2ZS5cblxuQERpcmVjdGl2ZSh7IHNlbGVjdG9yOiAnW2NscklmRHJhZ2dlZF0nIH0pXG5leHBvcnQgY2xhc3MgQ2xySWZEcmFnZ2VkPFQ+IGltcGxlbWVudHMgT25EZXN0cm95IHtcbiAgcHJpdmF0ZSBzdWJzY3JpcHRpb25zOiBTdWJzY3JpcHRpb25bXSA9IFtdO1xuICBjb25zdHJ1Y3RvcihcbiAgICBwcml2YXRlIHRlbXBsYXRlOiBUZW1wbGF0ZVJlZjxhbnk+LFxuICAgIEBPcHRpb25hbCgpXG4gICAgQFNraXBTZWxmKClcbiAgICBwcml2YXRlIGNvbnRhaW5lcjogVmlld0NvbnRhaW5lclJlZixcbiAgICBAT3B0aW9uYWwoKSBwcml2YXRlIGRyYWdFdmVudExpc3RlbmVyOiBEcmFnRXZlbnRMaXN0ZW5lclNlcnZpY2U8VD5cbiAgKSB7XG4gICAgaWYgKCF0aGlzLmRyYWdFdmVudExpc3RlbmVyIHx8ICF0aGlzLmNvbnRhaW5lcikge1xuICAgICAgdGhyb3cgbmV3IEVycm9yKCdUaGUgKmNscklmRHJhZ2dlZCBkaXJlY3RpdmUgY2FuIG9ubHkgYmUgdXNlZCBpbnNpZGUgb2YgYSBjbHJEcmFnZ2FibGUgZGlyZWN0aXZlLicpO1xuICAgIH1cblxuICAgIHRoaXMuc3Vic2NyaXB0aW9ucy5wdXNoKFxuICAgICAgdGhpcy5kcmFnRXZlbnRMaXN0ZW5lci5kcmFnU3RhcnRlZC5zdWJzY3JpYmUoKGV2ZW50OiBEcmFnRXZlbnRJbnRlcmZhY2U8VD4pID0+IHtcbiAgICAgICAgdGhpcy5jb250YWluZXIuY3JlYXRlRW1iZWRkZWRWaWV3KHRoaXMudGVtcGxhdGUpO1xuICAgICAgfSlcbiAgICApO1xuICAgIHRoaXMuc3Vic2NyaXB0aW9ucy5wdXNoKFxuICAgICAgdGhpcy5kcmFnRXZlbnRMaXN0ZW5lci5kcmFnRW5kZWQuc3Vic2NyaWJlKChldmVudDogRHJhZ0V2ZW50SW50ZXJmYWNlPFQ+KSA9PiB7XG4gICAgICAgIHRoaXMuY29udGFpbmVyLmNsZWFyKCk7XG4gICAgICB9KVxuICAgICk7XG4gIH1cblxuICBuZ09uRGVzdHJveSgpIHtcbiAgICB0aGlzLnN1YnNjcmlwdGlvbnMuZm9yRWFjaCgoc3ViOiBTdWJzY3JpcHRpb24pID0+IHN1Yi51bnN1YnNjcmliZSgpKTtcbiAgfVxufVxuIl19

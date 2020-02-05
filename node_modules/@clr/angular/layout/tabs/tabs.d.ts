@@ -1,0 +1,38 @@
+import { AfterContentInit, OnDestroy } from '@angular/core';
+import { IfActiveService } from '../../utils/conditional/if-active.service';
+import { IfOpenService } from '../../utils/conditional/if-open.service';
+import { TabsService } from './providers/tabs.service';
+import { ClrTabLink } from './tab-link.directive';
+import { ClrCommonStringsService } from '../../utils/i18n/common-strings.service';
+import { TabsLayout } from './enums/tabs-layout.enum';
+import { ClrKeyFocus } from '../../utils/focus/key-focus/key-focus';
+export declare class ClrTabs implements AfterContentInit, OnDestroy {
+    ifActiveService: IfActiveService;
+    ifOpenService: IfOpenService;
+    tabsService: TabsService;
+    tabsId: number;
+    commonStrings: ClrCommonStringsService;
+    private platformId;
+    private subscriptions;
+    private readonly overflowPosition;
+    private tabContentViewContainer;
+    layout: TabsLayout;
+    private tabs;
+    private _tabLinkDirectives;
+    readonly tabLinkDirectives: ClrTabLink[];
+    tabLinkElements: HTMLElement[];
+    keyFocus: ClrKeyFocus;
+    constructor(ifActiveService: IfActiveService, ifOpenService: IfOpenService, tabsService: TabsService, tabsId: number, commonStrings: ClrCommonStringsService, platformId: Object);
+    readonly activeTabInOverflow: boolean;
+    readonly tabIds: string;
+    ngAfterContentInit(): void;
+    toggleOverflow(event: any): void;
+    checkFocusVisible(): void;
+    inOverflow(): boolean;
+    readonly isVertical: boolean;
+    ngOnDestroy(): void;
+    private listenForTabLinkChanges;
+    private listenForOverflowMenuFocusChanges;
+    private focusToFirstItemInOverflow;
+    private nextFocusedItemIsNotInOverflow;
+}

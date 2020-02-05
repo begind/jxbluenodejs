@@ -1,0 +1,32 @@
+/*
+ * Copyright (c) 2016-2019 VMware, Inc. All Rights Reserved.
+ * This software is released under MIT license.
+ * The full license information can be found in LICENSE in the root directory of this project.
+ */
+/**
+ * Links a set of focusable items to a parent along one direction
+ */
+export function linkParent(items, parent, direction) {
+    items.forEach(item => (item[direction] = parent));
+}
+/**
+ * Double-links a set of focusable items vertically, possibly looping
+ */
+export function linkVertical(items, loop = true) {
+    items.forEach((item, index) => {
+        if (index > 0) {
+            item.up = items[index - 1];
+        }
+        if (index < items.length - 1) {
+            item.down = items[index + 1];
+        }
+    });
+    if (loop && items.length > 1) {
+        items[0].up = items[items.length - 1];
+        items[items.length - 1].down = items[0];
+    }
+}
+// Right now I only need the two linkers above, but we can easily add more linkers. A couple examples:
+// export function linkHorizontal(items: FocusableItem[], loop = true);
+// export function linkTable(items: FocusableItem[][]);
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibGlua2Vycy5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0BjbHIvYW5ndWxhci8iLCJzb3VyY2VzIjpbInV0aWxzL2ZvY3VzL2ZvY3VzYWJsZS1pdGVtL2xpbmtlcnMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7R0FJRztBQU1IOztHQUVHO0FBQ0gsTUFBTSxVQUFVLFVBQVUsQ0FDeEIsS0FBc0IsRUFDdEIsTUFBaUQsRUFDakQsU0FBNEI7SUFFNUIsS0FBSyxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsRUFBRSxDQUFDLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxHQUFHLE1BQU0sQ0FBQyxDQUFDLENBQUM7QUFDcEQsQ0FBQztBQUVEOztHQUVHO0FBQ0gsTUFBTSxVQUFVLFlBQVksQ0FBQyxLQUFzQixFQUFFLElBQUksR0FBRyxJQUFJO0lBQzlELEtBQUssQ0FBQyxPQUFPLENBQUMsQ0FBQyxJQUFJLEVBQUUsS0FBSyxFQUFFLEVBQUU7UUFDNUIsSUFBSSxLQUFLLEdBQUcsQ0FBQyxFQUFFO1lBQ2IsSUFBSSxDQUFDLEVBQUUsR0FBRyxLQUFLLENBQUMsS0FBSyxHQUFHLENBQUMsQ0FBQyxDQUFDO1NBQzVCO1FBQ0QsSUFBSSxLQUFLLEdBQUcsS0FBSyxDQUFDLE1BQU0sR0FBRyxDQUFDLEVBQUU7WUFDNUIsSUFBSSxDQUFDLElBQUksR0FBRyxLQUFLLENBQUMsS0FBSyxHQUFHLENBQUMsQ0FBQyxDQUFDO1NBQzlCO0lBQ0gsQ0FBQyxDQUFDLENBQUM7SUFDSCxJQUFJLElBQUksSUFBSSxLQUFLLENBQUMsTUFBTSxHQUFHLENBQUMsRUFBRTtRQUM1QixLQUFLLENBQUMsQ0FBQyxDQUFDLENBQUMsRUFBRSxHQUFHLEtBQUssQ0FBQyxLQUFLLENBQUMsTUFBTSxHQUFHLENBQUMsQ0FBQyxDQUFDO1FBQ3RDLEtBQUssQ0FBQyxLQUFLLENBQUMsTUFBTSxHQUFHLENBQUMsQ0FBQyxDQUFDLElBQUksR0FBRyxLQUFLLENBQUMsQ0FBQyxDQUFDLENBQUM7S0FDekM7QUFDSCxDQUFDO0FBRUQsc0dBQXNHO0FBQ3RHLHVFQUF1RTtBQUN2RSx1REFBdUQiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxuICogQ29weXJpZ2h0IChjKSAyMDE2LTIwMTkgVk13YXJlLCBJbmMuIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKiBUaGlzIHNvZnR3YXJlIGlzIHJlbGVhc2VkIHVuZGVyIE1JVCBsaWNlbnNlLlxuICogVGhlIGZ1bGwgbGljZW5zZSBpbmZvcm1hdGlvbiBjYW4gYmUgZm91bmQgaW4gTElDRU5TRSBpbiB0aGUgcm9vdCBkaXJlY3Rvcnkgb2YgdGhpcyBwcm9qZWN0LlxuICovXG5cbmltcG9ydCB7IE9ic2VydmFibGUgfSBmcm9tICdyeGpzJztcbmltcG9ydCB7IEFycm93S2V5RGlyZWN0aW9uIH0gZnJvbSAnLi4vYXJyb3cta2V5LWRpcmVjdGlvbi5lbnVtJztcbmltcG9ydCB7IEZvY3VzYWJsZUl0ZW0gfSBmcm9tICcuL2ZvY3VzYWJsZS1pdGVtJztcblxuLyoqXG4gKiBMaW5rcyBhIHNldCBvZiBmb2N1c2FibGUgaXRlbXMgdG8gYSBwYXJlbnQgYWxvbmcgb25lIGRpcmVjdGlvblxuICovXG5leHBvcnQgZnVuY3Rpb24gbGlua1BhcmVudChcbiAgaXRlbXM6IEZvY3VzYWJsZUl0ZW1bXSxcbiAgcGFyZW50OiBGb2N1c2FibGVJdGVtIHwgT2JzZXJ2YWJsZTxGb2N1c2FibGVJdGVtPixcbiAgZGlyZWN0aW9uOiBBcnJvd0tleURpcmVjdGlvblxuKSB7XG4gIGl0ZW1zLmZvckVhY2goaXRlbSA9PiAoaXRlbVtkaXJlY3Rpb25dID0gcGFyZW50KSk7XG59XG5cbi8qKlxuICogRG91YmxlLWxpbmtzIGEgc2V0IG9mIGZvY3VzYWJsZSBpdGVtcyB2ZXJ0aWNhbGx5LCBwb3NzaWJseSBsb29waW5nXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBsaW5rVmVydGljYWwoaXRlbXM6IEZvY3VzYWJsZUl0ZW1bXSwgbG9vcCA9IHRydWUpIHtcbiAgaXRlbXMuZm9yRWFjaCgoaXRlbSwgaW5kZXgpID0+IHtcbiAgICBpZiAoaW5kZXggPiAwKSB7XG4gICAgICBpdGVtLnVwID0gaXRlbXNbaW5kZXggLSAxXTtcbiAgICB9XG4gICAgaWYgKGluZGV4IDwgaXRlbXMubGVuZ3RoIC0gMSkge1xuICAgICAgaXRlbS5kb3duID0gaXRlbXNbaW5kZXggKyAxXTtcbiAgICB9XG4gIH0pO1xuICBpZiAobG9vcCAmJiBpdGVtcy5sZW5ndGggPiAxKSB7XG4gICAgaXRlbXNbMF0udXAgPSBpdGVtc1tpdGVtcy5sZW5ndGggLSAxXTtcbiAgICBpdGVtc1tpdGVtcy5sZW5ndGggLSAxXS5kb3duID0gaXRlbXNbMF07XG4gIH1cbn1cblxuLy8gUmlnaHQgbm93IEkgb25seSBuZWVkIHRoZSB0d28gbGlua2VycyBhYm92ZSwgYnV0IHdlIGNhbiBlYXNpbHkgYWRkIG1vcmUgbGlua2Vycy4gQSBjb3VwbGUgZXhhbXBsZXM6XG4vLyBleHBvcnQgZnVuY3Rpb24gbGlua0hvcml6b250YWwoaXRlbXM6IEZvY3VzYWJsZUl0ZW1bXSwgbG9vcCA9IHRydWUpO1xuLy8gZXhwb3J0IGZ1bmN0aW9uIGxpbmtUYWJsZShpdGVtczogRm9jdXNhYmxlSXRlbVtdW10pO1xuIl19
