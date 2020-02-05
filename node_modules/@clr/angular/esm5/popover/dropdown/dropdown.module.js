@@ -1,0 +1,30 @@
+/*
+ * Copyright (c) 2016-2018 VMware, Inc. All Rights Reserved.
+ * This software is released under MIT license.
+ * The full license information can be found in LICENSE in the root directory of this project.
+ */
+import * as tslib_1 from "tslib";
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ClrIconModule } from '../../icon/icon.module';
+import { ClrConditionalModule } from '../../utils/conditional/conditional.module';
+import { ClrCommonPopoverModule } from '../common/popover.module';
+import { ClrDropdown } from './dropdown';
+import { ClrDropdownItem } from './dropdown-item';
+import { ClrDropdownMenu } from './dropdown-menu';
+import { ClrDropdownTrigger } from './dropdown-trigger';
+export var CLR_DROPDOWN_DIRECTIVES = [ClrDropdown, ClrDropdownMenu, ClrDropdownTrigger, ClrDropdownItem];
+var ClrDropdownModule = /** @class */ (function () {
+    function ClrDropdownModule() {
+    }
+    ClrDropdownModule = tslib_1.__decorate([
+        NgModule({
+            imports: [CommonModule, ClrCommonPopoverModule],
+            declarations: [CLR_DROPDOWN_DIRECTIVES],
+            exports: [CLR_DROPDOWN_DIRECTIVES, ClrConditionalModule, ClrIconModule],
+        })
+    ], ClrDropdownModule);
+    return ClrDropdownModule;
+}());
+export { ClrDropdownModule };
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZHJvcGRvd24ubW9kdWxlLmpzIiwic291cmNlUm9vdCI6Im5nOi8vQGNsci9hbmd1bGFyLyIsInNvdXJjZXMiOlsicG9wb3Zlci9kcm9wZG93bi9kcm9wZG93bi5tb2R1bGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7R0FJRzs7QUFFSCxPQUFPLEVBQUUsWUFBWSxFQUFFLE1BQU0saUJBQWlCLENBQUM7QUFDL0MsT0FBTyxFQUFFLFFBQVEsRUFBUSxNQUFNLGVBQWUsQ0FBQztBQUUvQyxPQUFPLEVBQUUsYUFBYSxFQUFFLE1BQU0sd0JBQXdCLENBQUM7QUFDdkQsT0FBTyxFQUFFLG9CQUFvQixFQUFFLE1BQU0sNENBQTRDLENBQUM7QUFDbEYsT0FBTyxFQUFFLHNCQUFzQixFQUFFLE1BQU0sMEJBQTBCLENBQUM7QUFFbEUsT0FBTyxFQUFFLFdBQVcsRUFBRSxNQUFNLFlBQVksQ0FBQztBQUN6QyxPQUFPLEVBQUUsZUFBZSxFQUFFLE1BQU0saUJBQWlCLENBQUM7QUFDbEQsT0FBTyxFQUFFLGVBQWUsRUFBRSxNQUFNLGlCQUFpQixDQUFDO0FBQ2xELE9BQU8sRUFBRSxrQkFBa0IsRUFBRSxNQUFNLG9CQUFvQixDQUFDO0FBRXhELE1BQU0sQ0FBQyxJQUFNLHVCQUF1QixHQUFnQixDQUFDLFdBQVcsRUFBRSxlQUFlLEVBQUUsa0JBQWtCLEVBQUUsZUFBZSxDQUFDLENBQUM7QUFPeEg7SUFBQTtJQUFnQyxDQUFDO0lBQXBCLGlCQUFpQjtRQUw3QixRQUFRLENBQUM7WUFDUixPQUFPLEVBQUUsQ0FBQyxZQUFZLEVBQUUsc0JBQXNCLENBQUM7WUFDL0MsWUFBWSxFQUFFLENBQUMsdUJBQXVCLENBQUM7WUFDdkMsT0FBTyxFQUFFLENBQUMsdUJBQXVCLEVBQUUsb0JBQW9CLEVBQUUsYUFBYSxDQUFDO1NBQ3hFLENBQUM7T0FDVyxpQkFBaUIsQ0FBRztJQUFELHdCQUFDO0NBQUEsQUFBakMsSUFBaUM7U0FBcEIsaUJBQWlCIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIENvcHlyaWdodCAoYykgMjAxNi0yMDE4IFZNd2FyZSwgSW5jLiBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICogVGhpcyBzb2Z0d2FyZSBpcyByZWxlYXNlZCB1bmRlciBNSVQgbGljZW5zZS5cbiAqIFRoZSBmdWxsIGxpY2Vuc2UgaW5mb3JtYXRpb24gY2FuIGJlIGZvdW5kIGluIExJQ0VOU0UgaW4gdGhlIHJvb3QgZGlyZWN0b3J5IG9mIHRoaXMgcHJvamVjdC5cbiAqL1xuXG5pbXBvcnQgeyBDb21tb25Nb2R1bGUgfSBmcm9tICdAYW5ndWxhci9jb21tb24nO1xuaW1wb3J0IHsgTmdNb2R1bGUsIFR5cGUgfSBmcm9tICdAYW5ndWxhci9jb3JlJztcblxuaW1wb3J0IHsgQ2xySWNvbk1vZHVsZSB9IGZyb20gJy4uLy4uL2ljb24vaWNvbi5tb2R1bGUnO1xuaW1wb3J0IHsgQ2xyQ29uZGl0aW9uYWxNb2R1bGUgfSBmcm9tICcuLi8uLi91dGlscy9jb25kaXRpb25hbC9jb25kaXRpb25hbC5tb2R1bGUnO1xuaW1wb3J0IHsgQ2xyQ29tbW9uUG9wb3Zlck1vZHVsZSB9IGZyb20gJy4uL2NvbW1vbi9wb3BvdmVyLm1vZHVsZSc7XG5cbmltcG9ydCB7IENsckRyb3Bkb3duIH0gZnJvbSAnLi9kcm9wZG93bic7XG5pbXBvcnQgeyBDbHJEcm9wZG93bkl0ZW0gfSBmcm9tICcuL2Ryb3Bkb3duLWl0ZW0nO1xuaW1wb3J0IHsgQ2xyRHJvcGRvd25NZW51IH0gZnJvbSAnLi9kcm9wZG93bi1tZW51JztcbmltcG9ydCB7IENsckRyb3Bkb3duVHJpZ2dlciB9IGZyb20gJy4vZHJvcGRvd24tdHJpZ2dlcic7XG5cbmV4cG9ydCBjb25zdCBDTFJfRFJPUERPV05fRElSRUNUSVZFUzogVHlwZTxhbnk+W10gPSBbQ2xyRHJvcGRvd24sIENsckRyb3Bkb3duTWVudSwgQ2xyRHJvcGRvd25UcmlnZ2VyLCBDbHJEcm9wZG93bkl0ZW1dO1xuXG5ATmdNb2R1bGUoe1xuICBpbXBvcnRzOiBbQ29tbW9uTW9kdWxlLCBDbHJDb21tb25Qb3BvdmVyTW9kdWxlXSxcbiAgZGVjbGFyYXRpb25zOiBbQ0xSX0RST1BET1dOX0RJUkVDVElWRVNdLFxuICBleHBvcnRzOiBbQ0xSX0RST1BET1dOX0RJUkVDVElWRVMsIENsckNvbmRpdGlvbmFsTW9kdWxlLCBDbHJJY29uTW9kdWxlXSxcbn0pXG5leHBvcnQgY2xhc3MgQ2xyRHJvcGRvd25Nb2R1bGUge31cbiJdfQ==
