@@ -27,15 +27,15 @@ canary:
   enabled: false
   progressDeadlineSeconds: 60
   canaryAnalysis:
-    interval: "5m"
-    threshold: 2
+    interval: "1m"
+    threshold: 5
     maxWeight: 60
     stepWeight: 20
     # WARNING: Canary deployments will fail and rollback if there is no traffic that will generate the below specified metrics.
     metrics:
       requestSuccessRate:
-        threshold: 20
-        interval: "5m"
+        threshold: 99
+        interval: "1m"
       requestDuration:
         threshold: 1000
         interval: "1m"
@@ -54,10 +54,10 @@ service:
 resources:
   limits:
     cpu: 1000m
-    memory: 512Mi
+    memory: 1024Mi
   requests:
     cpu: 1000m
-    memory: 380Mi
+    memory: 512Mi
 probePath: /
 livenessProbe:
   initialDelaySeconds: 120
