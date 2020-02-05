@@ -62,7 +62,7 @@ pipeline {
       steps {
         container('nodejs') {
           dir('./charts/jxbluenodejs') {
-            sh "jx step hangelog --batch-mode --version v\$(cat ../../VERSION)"
+            sh "jx step changelog --batch-mode --version v\$(cat ../../VERSION)"
 
             // release the helm chart
             sh "jx step helm release"
