@@ -51,7 +51,7 @@ pipeline {
           // lint
           sh "npm install -g @angular/cli@8.3.22"
           sh "ng lint"
-          sh "npm install jasmine-core"
+          //sh "npm install jasmine-core"
           sh "npm install"
           //sh "CI=true DISPLAY=:99 npm test"
           sh "export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml"
