@@ -50,7 +50,7 @@ pipeline {
           sh "jx step credential -s npm-token -k file -f /builder/home/.npmrc --optional=true"
           // lint
           sh "npm install -g @angular/cli@8.3.22"
-          sh "ng lint"
+          //sh "ng lint"
           //sh "npm install jasmine-core"
           sh "npm install"
           //sh "CI=true DISPLAY=:99 npm test"
