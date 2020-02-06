@@ -9,37 +9,11 @@ pipeline {
     DOCKER_REGISTRY_ORG = 'psldocker88'
   }
   stages {
-    stage('CI Build and push snapshot') {
-      when {
-        branch 'PR-*'
-      }
-      environment {
-        PREVIEW_VERSION = "0.0.0-SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER"
-        PREVIEW_NAMESPACE = "$APP_NAME-$BRANCH_NAME".toLowerCase()
-        HELM_RELEASE = "$PREVIEW_NAMESPACE".toLowerCase()
-      }
+    stage('Lint Code') {
       steps {
         container('nodejs') {
-          sh "jx step credential -s npm-token -k file -f /builder/home/.npmrc --optional=true"
-          sh "npm install"
-          sh "CI=true DISPLAY=:99 npm test"
-          sh "export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml"
-          sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
-          dir('./charts/preview') {
-            sh "make preview"
-            sh "jx preview --app $APP_NAME --dir ../.."
-          }
-        }
-      }
-    }
-    stage('Build Release') {
-      when {
-        branch 'master'
-      }
-      steps {
-        container('nodejs') {
-
-          // ensure we're not on a detached head
+          // some code modeled off of Jenkins X's quickstart angular app
+          // ensure we're not on a detached head 
           sh "git checkout master"
           sh "git config --global credential.helper store"
           sh "jx step git credentials"
@@ -48,21 +22,26 @@ pipeline {
           sh "echo \$(jx-release-version) > VERSION"
           sh "jx step tag --version \$(cat VERSION)"
           sh "jx step credential -s npm-token -k file -f /builder/home/.npmrc --optional=true"
-          // lint
-          //sh "npm install -g @angular/cli@8.3.22"
-          //sh "ng lint"
-          //sh "npm install jasmine-core"
+
+          // lint the code
           sh "npm install"
-          //sh "CI=true DISPLAY=:99 npm test"
+          //sh "npm install -g @angular/cli@8.3.22"
+          sh "ng lint"
+        }
+      }
+    }
+    stage('Build and put in docker hub') {
+      steps {
+        container('nodejs') {
+
+          //jx step post build builds and puts the container into the docker
+          //hub that is configured in Jenkins X
           sh "export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml"
           sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:\$(cat VERSION)"
         }
       }
     }
-    stage('Promote to Environments') {
-      when {
-        branch 'master'
-      }
+    stage('Deploy in stage/blue environment') {
       steps {
         container('nodejs') {
           dir('./charts/jxbluenodejs') {
@@ -71,13 +50,35 @@ pipeline {
             // release the helm chart
             sh "jx step helm release"
 
-            // promote to production environment
+            // promote to stage/blue environment
+            sh "jx promote -b -e staging --timeout 1h --version \$(cat ../../VERSION)"
+
+          }
+        }
+      }
+    }
+    stage('Done testing?') {
+      steps {
+
+        input "Done testing, and ready to move to production?"
+
+        }
+      }
+    stage('Deploy in production/green environment') {
+      steps {
+        container('nodejs') {
+          dir('./charts/jxbluenodejs') {
+            sh "jx step changelog --batch-mode --version v\$(cat ../../VERSION)"
+
+            // release the helm chart
+            sh "jx step helm release"
+
+            // promote to production/green environment
             sh "jx promote -b -e production --timeout 1h --version \$(cat ../../VERSION)"
           }
         }
       }
     }
-  }
   post {
         always {
           cleanWs()
