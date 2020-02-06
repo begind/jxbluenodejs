@@ -25,7 +25,7 @@ pipeline {
 
           // lint the code
           sh "npm install"
-          //sh "npm install -g @angular/cli@8.3.22"
+          sh "npm install -g @angular/cli@8.3.22"
           sh "ng lint"
         }
       }
