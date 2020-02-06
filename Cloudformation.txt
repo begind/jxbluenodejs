@@ -1,0 +1,1 @@
+Jenkins X was used to create the EKS cluster, as a result, the EKSCTL command used Cloudformation to deploy the cluster.
